@@ -28,6 +28,7 @@ class Profanity < Formula
   depends_on "libomemo-c" => :build
   depends_on "pkg-config" => :build
 
+  depends_on "libsignal-protocol-c"
   depends_on "curl"
   depends_on "glib"
   depends_on "gnutls"
@@ -58,6 +59,11 @@ class Profanity < Formula
     # environment will prevent any other `brew` installations from being found.
     system "./configure", "--disable-silent-rules",
                           "--enable-python-plugins",
+                          "--enable-c-plugins",
+                          "--enable-plugins",
+                          "--enable-otr",
+                          "--enable-omemo",
+                          "--enable-pgp",
                           "BREW=#{HOMEBREW_BREW_FILE}",
                           *std_configure_args.reject { |s| s["--disable-debug"] }
     system "make", "install"
